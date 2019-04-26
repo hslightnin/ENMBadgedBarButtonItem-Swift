@@ -33,7 +33,7 @@ class MasterViewController: UITableViewController {
         let image = UIImage(imageLiteralResourceName: "barbuttonimage")
         let buttonFrame: CGRect = CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height)
         let barButton = BadgedBarButtonItem(
-            startingBadgeValue: leftCount,
+            startingBadgeValue: "44",
             frame: buttonFrame,
             image: image
         )

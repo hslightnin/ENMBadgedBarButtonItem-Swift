@@ -13,7 +13,7 @@ import QuartzCore
 open class BadgedBarButtonItem: UIBarButtonItem {
     
     var badgeLabel: UILabel = UILabel()
-    @IBInspectable public var badgeValue: Int = 0 {
+    @IBInspectable public var badgeValue: Any = 0 {
         didSet {
             updateBadgeValue()
         }
@@ -51,7 +51,7 @@ open class BadgedBarButtonItem: UIBarButtonItem {
     */
     public var badgeProperties: BadgeProperties
     
-    public init(customView: UIView, value: Int, badgeProperties: BadgeProperties = BadgeProperties()) {
+    public init(customView: UIView, value: Any, badgeProperties: BadgeProperties = BadgeProperties()) {
         self.badgeProperties = badgeProperties
         super.init()
         
@@ -62,7 +62,7 @@ open class BadgedBarButtonItem: UIBarButtonItem {
         updateBadgeValue()
     }
     
-    public init(startingBadgeValue: Int,
+    public init(startingBadgeValue: Any,
                 frame: CGRect,
                 title: String? = nil,
                 image: UIImage?,
@@ -282,8 +282,16 @@ fileprivate extension BadgedBarButtonItem {
         return dupLabel
     }
     
-    func shouldBadgeHide(_ value: Int) -> Bool {
-        return (value == 0) && shouldHideBadgeAtZero
+    func shouldBadgeHide(_ value: Any) -> Bool {
+        if value is String {
+            return (value as! String == "") && shouldHideBadgeAtZero
+        }
+        if value is Int
+        {
+            return (value as! Int == 0) && shouldHideBadgeAtZero
+        }
+        return true
+        
     }
     
     func updateBadgeProperties() {
